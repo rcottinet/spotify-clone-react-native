@@ -3,11 +3,13 @@ import {SafeAreaView} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {BottomNavigation, BottomNavigationTab} from '@ui-kitten/components';
-import {HomeScreen} from './src/screens/HomeScreen.component.component';
+import {HomeScreen} from './src/screens/HomeScreen.component';
 import {SearchScreen} from './src/screens/SearchScreen.component';
-import {PlaylistScreen} from './src/screens/PlaylistScreen';
+import {PlaylistScreen} from './src/screens/PlaylistScreen.component';
 
 import {Icon, Layout} from '@ui-kitten/components';
+import AlbumScreen from './src/screens/AlbumScreen.component';
+import {HomeStack} from './src/navigation/HomeStack';
 
 const {Navigator, Screen} = createBottomTabNavigator();
 
@@ -34,7 +36,7 @@ const BottomTabBar = ({navigation, state}) => (
 
 const TabNavigator = () => (
   <Navigator tabBar={props => <BottomTabBar {...props} />}>
-    <Screen name="Home" component={HomeScreen} />
+    <Screen name="Home" component={HomeStack} />
     <Screen name="Search" component={SearchScreen} />
     <Screen name="Playlist" component={PlaylistScreen} />
   </Navigator>
