@@ -8,4 +8,4 @@ Expo installed
 
 ## Start project
 
-``expo start```
+```expo start```
