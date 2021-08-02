@@ -26,8 +26,8 @@ const AlbumScreen = ({navigator, route}) => {
           <Button style={styles.button}>PAUSE</Button>
         </View>
         <View style={styles.songList}>
-          {album.songs.map(song => (
-            <View style={styles.songView}>
+          {album.songs.map((song, index) => (
+            <View style={styles.songView} key={index}>
               <Image source={{uri: song.imageUri}} style={styles.imageSong} />
               <View style={styles.songDesc}>
                 <Text category="s1">{song.title}</Text>

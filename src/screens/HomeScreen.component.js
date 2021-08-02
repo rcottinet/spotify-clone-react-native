@@ -5,7 +5,7 @@ import {ThemeContext} from '../../theme-context';
 
 import albumCategoriesArr from '../../SpotifyAssets/data/albumCategories';
 import {AlbumCategorie} from '../components/AlbumCategorie';
-
+import Header from '../components/Header.component';
 export const HomeScreen = ({navigation}) => {
   const themeContext = React.useContext(ThemeContext);
 
@@ -27,7 +27,10 @@ export const HomeScreen = ({navigation}) => {
         style={styles.scrollView}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}>
-        <View style={{marginTop: 100}}>{albumCategorieList}</View>
+        <View style={{marginTop: 100}}>
+          <Header />
+          {albumCategorieList}
+        </View>
       </ScrollView>
     </Layout>
   );
