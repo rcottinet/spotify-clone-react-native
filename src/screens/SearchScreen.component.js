@@ -1,10 +1,8 @@
 import React from 'react';
 import {StyleSheet, SafeAreaView, ScrollView, View} from 'react-native';
 import {Text, Layout, Button} from '@ui-kitten/components';
-import {ThemeContext} from '../../theme-context';
 import {SearchBar} from '../components/SearchBar.component';
 export function SearchScreen() {
-  const themeContext = React.useContext(ThemeContext);
 
   return (
     <Layout style={styles.layout} level="2">
@@ -15,11 +13,7 @@ export function SearchScreen() {
             <SearchBar />
           </View>
 
-          <Button
-            style={{marginTop: 300, width: 100}}
-            onPress={themeContext.toggleTheme}>
-            theme
-          </Button>
+          
         </ScrollView>
       </SafeAreaView>
     </Layout>

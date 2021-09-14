@@ -3,11 +3,14 @@ import { StyleSheet, View } from 'react-native';
 import { Text, Icon, Button } from '@ui-kitten/components';
 import { signOut } from '../utils/signOut';
 import { Auth } from 'aws-amplify';
+import {ThemeContext} from '../../theme-context';
 
 const StarIcon = props => <Icon {...props} name="settings-outline" />;
 const SignOutIcon = props => <Icon {...props} name="log-out-outline" />;
 
 const Header = () => {
+  const themeContext = React.useContext(ThemeContext);
+
   const [user, setUser] = useState(null);
   
 
@@ -27,6 +30,7 @@ const Header = () => {
         <Text style={styles.textWelcoming} category="h3" appearance='hint'>Hello</Text>
         <Text category="h1" > {user && user.username}</Text>
         <Text style={styles.textWelcoming} category="h1" appearance='hint'>!</Text>
+        
       </View>
       <View style={styles.headerView}>
        
@@ -39,6 +43,7 @@ const Header = () => {
             name="checkmark-circle-2-outline"
             />
         </View>
+       
         <Button
           style={styles.settingSutton}
           appearance="ghost"
@@ -52,6 +57,11 @@ const Header = () => {
           >
           </Button>
       </View>
+      <Button
+            style={{margin: 20, width: 100}}
+            onPress={themeContext.toggleTheme}>
+            switch theme
+      </Button>
     </View>
   );
 };
