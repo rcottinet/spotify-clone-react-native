@@ -22,28 +22,36 @@ const Header = () => {
   }, []);
 
   return (
-    <View style={styles.headerView}>
-      <Button
-        style={styles.settingSutton}
-        appearance="ghost"
-        accessoryLeft={StarIcon}
-        />
-      <View style={styles.emailView}>
-          <Icon  
-          style={styles.icon}
-          fill='#00D100' 
-          name="checkmark-circle-2-outline"
-          />
-          <Text> {user && user.attributes.email}</Text>
+    <View>
+      <View style={styles.textWelcoming}>
+        <Text style={styles.textWelcoming} category="h3" appearance='hint'>Hello</Text>
+        <Text category="h1" > {user && user.username}</Text>
+        <Text style={styles.textWelcoming} category="h1" appearance='hint'>!</Text>
       </View>
-     
-      <Button 
-        onPress={signOut}
-        style={styles.signOutButton}
-        appearance="ghost"
-        accessoryLeft={SignOutIcon}
-        >
-        </Button>
+      <View style={styles.headerView}>
+       
+        <View style={styles.emailView}>
+           
+            <Text category="s1"> {user && user.attributes.email} </Text>
+            <Icon  
+            style={styles.icon}
+            fill='#00D100' 
+            name="checkmark-circle-2-outline"
+            />
+        </View>
+        <Button
+          style={styles.settingSutton}
+          appearance="ghost"
+          accessoryLeft={StarIcon}
+          />
+        <Button 
+          onPress={signOut}
+          style={styles.signOutButton}
+          appearance="ghost"
+          accessoryLeft={SignOutIcon}
+          >
+          </Button>
+      </View>
     </View>
   );
 };
@@ -51,10 +59,17 @@ const Header = () => {
 export default Header;
 
 const styles = StyleSheet.create({
+  textWelcoming : {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    marginBottom: 10,
+    marginLeft: 8,
+  },
   headerView: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginLeft: 8,
   },
   emailView: {
     flexDirection: 'row',
