@@ -1,0 +1,6 @@
+tasks:
+  - init: npm install
+    command: npm install && npm install --global expo-cli
+ports:
+  - port: 19000-19002
+    visibility: public
