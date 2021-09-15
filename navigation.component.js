@@ -8,7 +8,6 @@ import {SearchScreen} from './src/screens/SearchScreen.component';
 import {PlaylistScreen} from './src/screens/PlaylistScreen.component';
 
 import {Icon, Layout} from '@ui-kitten/components';
-import AlbumScreen from './src/screens/AlbumScreen.component';
 import {HomeStack} from './src/navigation/HomeStack';
 
 const {Navigator, Screen} = createBottomTabNavigator();

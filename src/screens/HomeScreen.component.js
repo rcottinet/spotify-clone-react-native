@@ -28,7 +28,7 @@ export const HomeScreen = ({navigation}) => {
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}>
         <View style={{marginTop: 100}}>
-          <Header />
+          <Header navigation={navigation}/>
           {albumCategorieList}
         </View>
       </ScrollView>

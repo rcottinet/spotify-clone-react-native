@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import {Text} from '@ui-kitten/components';
 import Album from './Album';
+
 export const AlbumCategorie = props => {
   const {id, title, albums} = props;
   // export const AlbumCategorie = ({id, title, albums}, navigation) => {
