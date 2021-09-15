@@ -3,5 +3,5 @@ image:
 ports:
   - port: 19000-19002
 tasks:
-  - before: npm install
+  - before: npm install && expo install react-native-safe-area-context
     command: npm start

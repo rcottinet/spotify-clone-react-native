@@ -12,7 +12,7 @@
     ],
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
-    "emailVerificationSubject": "Your verification code",
+    "emailVerificationSubject": "Spotifion - Your verification code",
     "emailVerificationMessage": "Your verification code is {####}",
     "defaultPasswordPolicy": false,
     "passwordPolicyMinLength": 8,
@@ -25,12 +25,8 @@
     ],
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
-    "userpoolClientWriteAttributes": [
-        "email"
-    ],
-    "userpoolClientReadAttributes": [
-        "email"
-    ],
+    "userpoolClientWriteAttributes": [],
+    "userpoolClientReadAttributes": [],
     "userpoolClientLambdaRole": "spotif6e6ae58f_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
     "sharedId": "6e6ae58f",
@@ -48,9 +44,14 @@
             "Arn"
         ]
     },
-    "useDefault": "default",
+    "useDefault": "manual",
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
-    "dependsOn": []
+    "dependsOn": [],
+    "userPoolGroups": false,
+    "adminQueries": false,
+    "thirdPartyAuth": false,
+    "authProviders": [],
+    "hostedUI": false
 }
