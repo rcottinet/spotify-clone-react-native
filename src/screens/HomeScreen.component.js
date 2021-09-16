@@ -1,13 +1,11 @@
 import React from 'react';
 import {StyleSheet, SafeAreaView, ScrollView, View} from 'react-native';
 import {Layout, Text, Button} from '@ui-kitten/components';
-import {ThemeContext} from '../../theme-context';
 
 import albumCategoriesArr from '../../SpotifyAssets/data/albumCategories';
 import {AlbumCategorie} from '../components/AlbumCategorie';
 import Header from '../components/Header.component';
 export const HomeScreen = ({navigation}) => {
-  const themeContext = React.useContext(ThemeContext);
 
   const albumCategorieList = albumCategoriesArr.map(albumCategorie => {
     return (

@@ -20,7 +20,7 @@ const PlaylistIcon = props => <Icon {...props} name="speaker-outline" />;
 
 const BottomTabBar = ({navigation, state}) => (
   <Layout level="1">
-    <SafeAreaView>
+    <SafeAreaView forceInset={{ top: 'always' }}>
       <BottomNavigation
         appearance="noIndicator"
         selectedIndex={state.index}

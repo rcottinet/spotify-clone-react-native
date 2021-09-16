@@ -1,75 +1,162 @@
-import React from 'react';
-import {StyleSheet, View, ScrollView, Image} from 'react-native';
+import React , {useRef} from 'react';
+import {StyleSheet, View, Dimensions, Image, Animated,SafeAreaView} from 'react-native';
 import {Text, Layout, Button, Icon} from '@ui-kitten/components';
 import album from '../../SpotifyAssets/data/albumDetails';
+import {ThemeContext} from '../../theme-context';
 
 const MenuIcon = props => <Icon {...props} name="more-vertical-outline" />;
 
 const AlbumScreen = ({navigator, route}) => {
+  const scrollPosition = useRef(new Animated.Value(0)).current;
+  const themeContext = React.useContext(ThemeContext);
+
+  const minHeaderHeight = 150
+  const maxHeaderHeight = 350
+    
+  const headerHeight = scrollPosition.interpolate({
+    inputRange: [0, 500],
+    outputRange: [maxHeaderHeight, minHeaderHeight],
+    extrapolate: 'clamp',
+  });
+  
+  const opacity = scrollPosition.interpolate({
+    inputRange: [0, 100, 200],
+    outputRange: [1, 0.5, 0],
+    extrapolate: 'clamp',
+  });
+  const invertOpacity = scrollPosition.interpolate({
+    inputRange: [0, 100, 200],
+    outputRange: [0, 0.5, 1],
+    extrapolate: 'clamp',
+  });
+  const size = scrollPosition.interpolate({
+    inputRange: [0, 100, 200, 300, 400],
+    outputRange: [20, 17, 15, 13, 11],
+    extrapolate: 'clamp',
+  });
+  const imageHeight = scrollPosition.interpolate({
+    inputRange: [0, 400],
+    outputRange: [180, 60],
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  });
+  const imagePosition = scrollPosition.interpolate({
+    inputRange: [0, 400],
+    outputRange: [0, 150],
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  });
+  const playButtonPosition = scrollPosition.interpolate({
+    inputRange: [0, 400],
+    outputRange: [0, -40],
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  });
+  const titleTextPosition = scrollPosition.interpolate({
+    inputRange: [0, 400],
+    outputRange: [0, 35],
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  });
+  const headerBgColor = scrollPosition.interpolate({
+    inputRange: [0, 400],
+    outputRange: [ themeContext.theme === 'light' ? 'rgb(247,249,252)' : 'rgb(26,33,56)' , themeContext.theme === 'light' ? 'rgb(228,233,242)' : 'rgb(34,43,69)'],
+  })
+  const textColor = themeContext.theme === 'light' ? '#222B45' :'#FFFFFF' 
+
   return (
-    <Layout style={styles.layout} level="2">
-      <ScrollView
-        style={styles.scrollView}
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}>
-        <View style={styles.header}>
-          <Image source={{uri: album.imageUri}} style={styles.imageAlbum} />
-          <Text category="h4" style={styles.title}>
+      <Layout style={styles.layout} level="2">
+        <Animated.View style={{
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 10,
+          paddingTop: 40,
+          height: headerHeight,
+          opacity: 1,
+          backgroundColor: headerBgColor,
+          display: 'flex',
+          alignItems: 'center'
+        }}>
+          <Animated.Text style={{
+              opacity: invertOpacity,
+              fontWeight: "bold",
+              fontSize: 25,
+              color: textColor,
+              zIndex: 5,
+              transform: [{translateY: titleTextPosition}]
+            }}>
             {album.name}
-          </Text>
-          <Text
-            category="s1"
-            style={styles.textAuthorLikeNumber}
-            appearance="hint">
-            BY {album.by.toUpperCase()} - {album.numberOfLikes} LIKES
-          </Text>
-          <Button style={styles.button}>PAUSE</Button>
-        </View>
-        <View style={styles.songList}>
-          {album.songs.map((song, index) => (
-            <View style={styles.songView} key={index}>
-              <Image source={{uri: song.imageUri}} style={styles.imageSong} />
-              <View style={styles.songDesc}>
-                <Text category="s1">{song.title}</Text>
-                <Text category="s2" appearance="hint" style={styles.artistSong}>
-                  {song.artist}
-                </Text>
+            </Animated.Text>
+              
+            <Animated.Image source={{uri: album.imageUri}} style={{
+              margin: 10,
+              height: imageHeight,
+              width: imageHeight,
+              transform: [{translateX: imagePosition}],
+              borderRadius: 5,
+            }} />
+            <Animated.Text style={{
+                opacity: opacity,
+                fontSize: size,
+                fontWeight: "bold",
+                color: textColor
+              }}>
+              {album.name}
+            </Animated.Text>
+            <Animated.View>
+              <Button style={{
+                  transform: [{translateY: playButtonPosition}],
+                  height: 50
+              }}>PAUSE</Button>
+            </Animated.View>
+            <Animated.Text
+              style={{
+                opacity: opacity,
+                fontSize: size,
+                fontWeight: "bold",
+                color: textColor
+              }}
+              appearance="hint">
+              BY {album.by.toUpperCase()} - {album.numberOfLikes} LIKES
+            </Animated.Text>
+            
+          </Animated.View>
+        <Animated.ScrollView
+          onScroll={Animated.event(
+            [{nativeEvent: {contentOffset: {y: scrollPosition}}}],
+            {useNativeDriver: false},
+          )}
+          contentInsetAdjustmentBehavior="automatic"
+          style={styles.scrollView}
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}>
+        
+          <View style={styles.songList}>
+            {album.songs.map((song, index) => (
+              <View style={styles.songView} key={index}>
+                <Image source={{uri: song.imageUri}} style={styles.imageSong} />
+                <View style={styles.songDesc}>
+                  <Text category="s1">{song.title}</Text>
+                  <Text category="s2" appearance="hint" style={styles.artistSong}>
+                    {song.artist}
+                  </Text>
+                </View>
+                <View style={styles.songButton}>
+                  <Button appearance="ghost" accessoryLeft={MenuIcon} />
+                </View>
               </View>
-              <View style={styles.songButton}>
-                <Button appearance="ghost" accessoryLeft={MenuIcon} />
-              </View>
-            </View>
-          ))}
-        </View>
-      </ScrollView>
-    </Layout>
+            ))}
+          </View>
+        </Animated.ScrollView>
+      </Layout>
+
   );
 };
 
 export default AlbumScreen;
 
 const styles = StyleSheet.create({
-  header: {
-    marginTop: 60,
-    alignItems: 'center',
-  },
-  imageAlbum: {
-    height: 200,
-    width: 200,
-    borderRadius: 5,
-  },
-  title: {
-    marginTop: 30,
-  },
-  textAuthorLikeNumber: {
-    marginTop: 20,
-  },
-  button: {
-    marginTop: 10,
-    paddingHorizontal: 50,
-    paddingVertical: 20,
-    borderRadius: 30,
-  },
   songList: {
     marginTop: 20,
     marginHorizontal: 5,
