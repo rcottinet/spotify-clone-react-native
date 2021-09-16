@@ -5,13 +5,14 @@ import album from '../../SpotifyAssets/data/albumDetails';
 import {ThemeContext} from '../../theme-context';
 
 const MenuIcon = props => <Icon {...props} name="more-vertical-outline" />;
+const PlayCircleOutlineIcone = props => <Icon {...props} name="play-circle-outline" />;
 
 const AlbumScreen = ({navigator, route}) => {
   const scrollPosition = useRef(new Animated.Value(0)).current;
   const themeContext = React.useContext(ThemeContext);
 
   const minHeaderHeight = 150
-  const maxHeaderHeight = 350
+  const maxHeaderHeight = 370
     
   const headerHeight = scrollPosition.interpolate({
     inputRange: [0, 500],
@@ -48,9 +49,14 @@ const AlbumScreen = ({navigator, route}) => {
   });
   const playButtonPosition = scrollPosition.interpolate({
     inputRange: [0, 400],
-    outputRange: [0, -40],
+    outputRange: [0, -43],
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
+  });
+  const playButtonOpacity = scrollPosition.interpolate({
+    inputRange: [0, 200],
+    outputRange: [0, 0.25],
+    extrapolate: 'clamp',
   });
   const titleTextPosition = scrollPosition.interpolate({
     inputRange: [0, 400],
@@ -76,7 +82,7 @@ const AlbumScreen = ({navigator, route}) => {
           opacity: 1,
           backgroundColor: headerBgColor,
           display: 'flex',
-          alignItems: 'center'
+          alignItems: 'center',
         }}>
           <Animated.Text style={{
               opacity: invertOpacity,
@@ -100,22 +106,35 @@ const AlbumScreen = ({navigator, route}) => {
                 opacity: opacity,
                 fontSize: size,
                 fontWeight: "bold",
-                color: textColor
+                color: textColor,
+                marginBottom: 5
               }}>
               {album.name}
             </Animated.Text>
             <Animated.View>
               <Button style={{
                   transform: [{translateY: playButtonPosition}],
-                  height: 50
-              }}>PAUSE</Button>
+                  height: 50,
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 2,
+                  },
+                  shadowOpacity: playButtonOpacity,
+                  shadowRadius: 3.84,
+
+                  elevation: 5,
+              }}
+              accessoryRight={PlayCircleOutlineIcone}
+              >PLAY</Button>
             </Animated.View>
             <Animated.Text
               style={{
                 opacity: opacity,
                 fontSize: size,
                 fontWeight: "bold",
-                color: textColor
+                color: textColor,
+                marginTop: 7
               }}
               appearance="hint">
               BY {album.by.toUpperCase()} - {album.numberOfLikes} LIKES
