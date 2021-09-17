@@ -1,5 +1,6 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
+import { Button } from '@ui-kitten/components';
 import AlbumScreen from '../screens/AlbumScreen.component';
 import {HomeScreen} from '../screens/HomeScreen.component';
 import SettingScreen  from '../screens/SettingScreen.component';

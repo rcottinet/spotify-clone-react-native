@@ -3,6 +3,7 @@ import {StyleSheet, View, ScrollView, Image} from 'react-native';
 import {Text, Layout, Button, Icon} from '@ui-kitten/components';
 import { signOut } from '../utils/signOut';
 import {ThemeContext} from '../../theme-context';
+import BackButton from '../components/BackButton.component'
 
 const SignOutIcon = props => <Icon {...props} name="log-out-outline" />;
 
@@ -16,11 +17,23 @@ const SettingScreen = ({navigator, route}) => {
   const user = route.params.user;
   return (
     <Layout style={styles.layout} level="2">
-           <View style={{marginTop: 100, marginLeft: 20}}>
+
+            <View style={{
+              flexDirection: 'row',
+              alignItems: 'center'
+            }}>
+              <BackButton style={{
+                width: 10
+              }}/>
               <Text
                 category="h1">
                 Settings Page
               </Text>
+            </View>
+            <View style={{ 
+              marginHorizontal: 20,
+              justifyContent: 'space-around'
+              }}>
               
               <View style={styles.emailView}>
             
@@ -31,20 +44,20 @@ const SettingScreen = ({navigator, route}) => {
                     name="checkmark-circle-2-outline"
                   />
               </View>
-            </View>
-            <Button
-              style={styles.button}
-              onPress={themeContext.toggleTheme}
-              accessoryRight={themeContext.theme === 'light' ? MoonIcon : SunIcon}>
+              <Button
+                style={styles.button}
+                onPress={themeContext.toggleTheme}
+                accessoryRight={themeContext.theme === 'light' ? MoonIcon : SunIcon}>
               switch theme
-            </Button>
-            <Button 
-              onPress={signOut}
-              style={styles.button}
-              accessoryRight={SignOutIcon}
+              </Button>
+              <Button 
+                onPress={signOut}
+                style={styles.button}
+                accessoryRight={SignOutIcon}
               >
                 Sign out
-            </Button>
+              </Button>
+            </View>
          
     </Layout>
   );
@@ -55,11 +68,7 @@ export default SettingScreen;
 const styles = StyleSheet.create({
   layout: {
     flex: 1,
-  },headerView: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginLeft: 8,
+    paddingTop: 70,
   },
   emailView: {
     flexDirection: 'row',

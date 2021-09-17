@@ -3,6 +3,7 @@ import {StyleSheet, View, Dimensions, Image, Animated,SafeAreaView} from 'react-
 import {Text, Layout, Button, Icon} from '@ui-kitten/components';
 import album from '../../SpotifyAssets/data/albumDetails';
 import {ThemeContext} from '../../theme-context';
+import BackButton from '../components/BackButton.component';
 
 const MenuIcon = props => <Icon {...props} name="more-vertical-outline" />;
 const PlayCircleOutlineIcone = props => <Icon {...props} name="play-circle-outline" />;
@@ -72,6 +73,7 @@ const AlbumScreen = ({navigator, route}) => {
 
   return (
       <Layout style={styles.layout} level="2">
+        
         <Animated.View style={{
           top: 0,
           left: 0,
@@ -127,6 +129,7 @@ const AlbumScreen = ({navigator, route}) => {
               }}
               accessoryRight={PlayCircleOutlineIcone}
               >PLAY</Button>
+             
             </Animated.View>
             <Animated.Text
               style={{
